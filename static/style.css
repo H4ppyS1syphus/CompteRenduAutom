@@ -1,0 +1,430 @@
+:root { 
+    --primary-color: #302AE6; 
+    --secondary-color: #536390; 
+    --text-color: #424242; 
+    --background-color: #F3EEEC; 
+    --heading-color: #292922; 
+    --container-bg-color: #f8f8f8;
+    --button-hover-bg-color: #3f51b5;
+    --chat-bg-color: #f8f8f8;
+    --input-border-color: #ddd;
+    --slider-bg-color: #ccc;
+    --slider-knob-color: #fff;
+    --button-bg-color: #5c6bc0;;
+    --arrow-color: #000; /* Default arrow color for light theme */
+    --toggle-button-bg-color: #fff; /* Background color for toggle button in light theme */
+
+} 
+
+[theme="dark"] { 
+    --primary-color: #9A97F3; 
+    --secondary-color: #818cab; 
+    --text-color: #e1e1ff; 
+    --background-color: #161625; 
+    --heading-color: #818cab; 
+    --container-bg-color: #1a1a2e;
+    --button-hover-bg-color: #37465c;
+    --input-border-color: #555;
+    --slider-bg-color: #66bb6a;
+    --slider-knob-color: #fff;
+    --button-bg-color: #7a79d7;
+    --chat-bg-color: #1a1a2e;
+    --arrow-color: #fff; /* Arrow color for dark theme */
+    --toggle-button-bg-color: #7a79d7; /* Dark theme color for toggle button */
+} 
+
+body { 
+    background-color: var(--background-color); 
+    color: var(--text-color); 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    scroll-behavior: smooth;
+}
+
+.main-container {
+    display: flex; /* Use Flexbox layout */
+    min-height: 100vh; /* Minimum height to cover the viewport */
+}
+
+.lab-report {
+    width: 70%;
+    box-sizing: border-box;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    float: left; /* Aligns the container to the left */
+    overflow-y: auto; /* Enable vertical scrolling if content overflows */
+}
+
+
+
+.container {
+    background-color: var(--container-bg-color);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+h1 {
+    color: var(--heading-color);
+    text-align: center;
+}
+
+
+.buttons{
+    width: 70%; /* Full width to center the container */
+    box-sizing: border-box;
+    padding: 20px;
+    position: fixed; /* Fixed position to keep it at the bottom */
+    bottom: 0; /* Align to the bottom of the page */
+    text-align: center; /* Center-align the buttons inside the container */
+    background-color: var(--container-bg-color); /* Same background color as the container */
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    transform: translateY(0);
+    opacity: 1;
+    position: fixed; /* Keeps the panel fixed */
+    left: 0;
+}
+
+/* Keep the original button styling */
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--button-bg-color);
+    color: white;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    display: inline-block; /* Ensures buttons line up horizontally */
+}
+
+button:hover {
+    background-color: var(--button-hover-bg-color);
+}
+
+
+.buttons.hidden {
+    transform: translateY(100%); /* Slides the container down */
+    opacity: 0;
+}
+
+#toggle-button {
+    position: fixed; /* Keeps the button in a fixed position */
+    bottom: 90px; /* Position at the bottom */
+    right: 63.55%; /* Position to the right */
+    z-index: 11; /* Higher than the buNtton panel */
+    background-color: #fff; /* Circle background color */
+    border-radius: 50%; /* Makes it circular */
+    width: 40px; /* Size of the circle */
+    height: 40px; /* Size of the circle */
+    display: flex; /* To center the arrow icon inside the button */
+    align-items: center; /* Aligns content vertically */
+    justify-content: center; /* Aligns content horizontally */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Optional: adds shadow for depth */
+    border: none; /* Removes border */
+    cursor: pointer;
+    transition: bottom 0.5s ease; /* Transition for moving up and down */
+    background-color: var(--toggle-button-bg-color); /* Use variable for background color */
+}
+
+
+#toggle-button::before {
+    content: ''; /* Arrow icon */
+    border: var(--arrow-color) solid 3px;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+#toggle-button.upwards::before {
+    transform: rotate(-135deg); /* Rotates the arrow to point upwards */
+    -webkit-transform: rotate(-135deg);
+}
+
+
+.chat-container {
+    width: 30%; /* Adjust as needed */
+    overflow-y: auto; /* Enable scrolling */
+    box-sizing: border-box;
+    padding: 20px;
+    background-color: var(--chat-bg-color);
+    min-height: 100vh; /* Adjust as needed */
+}
+
+#chat-messages {
+    height: 90%; /* Adjusted for input and button height */
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+#chat-input {
+    position: fixed;
+    width: 25%; /* Adjusted for button width */
+    margin-bottom: 40px;
+    bottom: 10px;
+    min-height: 30px; /* Minimum height for the input field */
+    max-height: 100px; /* Maximum height for the input field */
+    padding: 0 10px;
+    border: 1px solid var(--input-border-color);
+    border-radius: 4px;
+    overflow-y: auto; /* Enable vertical scrolling */
+    word-wrap: break-word; /* Wrap long words to the next line */
+}
+
+#send-message {
+    width: 80px;
+    position: fixed;
+    bottom: 0px;
+    height: 30px;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--button-bg-color);
+    color: white;
+    cursor: pointer;
+}
+
+#send-message:hover {
+    background-color: var(--button-hover-bg-color);
+}
+
+.theme-switch-container { 
+    display: flex; 
+    align-items: center; 
+    position: absolute;
+    top: 40px;
+    left: 30px;
+} 
+
+.theme-slider { 
+    display: inline-block; 
+    height: 34px; 
+    position: relative; 
+    width: 60px; 
+} 
+
+.theme-slider input { 
+    display: none; 
+} 
+
+.slider { 
+    background-color: var(--slider-bg-color); 
+    bottom: 0; 
+    cursor: pointer; 
+    left: 0; 
+    position: absolute; 
+    right: 0; 
+    top: 0; 
+    transition: .4s; 
+} 
+
+.slider:before { 
+    background-color: var(--slider-knob-color); 
+    bottom: 4px; 
+    content: ""; 
+    height: 26px; 
+    left: 4px; 
+    position: absolute; 
+    transition: .4s; 
+    width: 26px; 
+} 
+
+input:checked + .slider { 
+    background-color: #66bb6a; 
+} 
+
+input:checked + .slider:before { 
+    transform: translateX(26px); 
+} 
+
+.slider.round { 
+    border-radius: 34px; 
+} 
+
+.slider.round:before { 
+    border-radius: 50%; 
+}
+
+.message {
+    margin-bottom: 20px; /* Adjust this value as needed for spacing */
+}
+
+.loading-gif {
+    width: 30px; /* Adjust width as needed */
+    height: 30px; /* Adjust height as needed */
+    display: inline-block; /* To align with the text */
+    vertical-align: middle; /* Align with the text */
+}
+
+latex-js{
+    display: block; /* Changed to block for better control */
+    width: 100%;
+    text-align: center; /* Center the content */
+    margin: auto; /* Additional centering for block elements */
+    font-size: 1.2em; /* Adjust the font size as needed */
+}
+
+/* Modal Styles */
+.modal {
+    display: none; /* Ensure modal is hidden initially */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* Center the modal */
+    padding: 20px;
+    border: 1px solid #888;
+    width: auto;
+    max-width: 80%;
+    box-sizing: border-box;
+    overflow-x: auto;
+    border-radius: 10px;
+}
+
+/* Button Styles */
+#create-table-btn {
+    padding: 10px 20px;
+    margin-top: 20px; /* Space above the button */
+    border-radius: 5px; /* Match input field border-radius */
+    /* Rest of your button styling */
+}
+
+/* Input Styles */
+.modal-content input[type="number"] {
+    width: 80%; /* Width relative to the modal */
+    padding: 8px; /* Comfortable padding */
+    margin-bottom: 15px; /* Spacing between inputs and button */
+    border: 1px solid #ddd; /* Subtle border */
+    border-radius: 4px; /* Slightly rounded corners */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Soft shadow for depth */
+    font-size: 16px; /* Readable font size */
+    background-color: #fafafa; /* Slightly off-white background */
+}
+
+/* Placeholder Styling */
+.modal-content input::placeholder {
+    color: #999;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Table Styles */
+.editable-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.editable-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+/* Add to your existing modal styles */
+#options-modal .modal-content button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    /* additional button styling */
+}
+
+
+
+
+/* Common style for input fields in both modals */
+.modal input[type='number'], 
+.modal input[type='text'] {
+    width: 180px; /* Adjust the width as desired */
+    min-width: 40px; /* Adjust the minimum width as needed */
+    margin-right: 5px; /* Adjust spacing between inputs */
+    padding: 5px; /* Padding for better text visibility */
+}
+
+/* Add any additional styling as needed */
+
+.data-input-row.header-row {
+    font-weight: bold;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+
+
+.data-input-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-bottom: 5px;
+}
+
+.data-input-row input {
+    flex: 1 1 auto; /* Adjust based on the desired flexibility */
+    width: 60px; /* Adjust width as needed */
+    min-width: 40px;
+    margin-right: 5px;
+    padding: 5px;
+}
+
+.data-input-row hr {
+    width: 100%;
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 10px 0;
+}
+
+
+.resizable-image {
+    max-width: 100%; /* Set a maximum width for the image */
+    height: auto; /* Maintain the original aspect ratio while resizing */
+    cursor: pointer; /* Change the cursor to indicate that the image is clickable/resizable */
+}
+
+/* Define a hover effect to provide visual feedback when hovering over images */
+.resizable-image:hover {
+    transform: scale(1.2); /* Increase the size on hover (adjust the scale factor as needed) */
+    transition: transform 0.3s ease; /* Add a smooth transition effect */
+}
+
+
+
+.drop-zone {
+    border: 2px dashed var(--primary-color);
+    padding: 20px;
+    margin: 10px auto; /* auto margins will center the block */
+    text-align: center;
+    background-color: var(--background-color);
+    display: block; /* Change to block to take full width of its container */
+    width: fit-content; /* Width depends on the content */
+    resize: both;
+    overflow: hidden;
+}
+
+/* Styling for images within the drop zone */
+.drop-zone img {
+    display: block; /* Use block to enable margin: auto */
+    max-width: 100%; /* Maximum relative to the container */
+    max-height: 100%; /* Maximum relative to the container */
+    height: auto; /* Maintain aspect ratio */
+    margin: auto; /* This will center the image horizontally */
+}
+

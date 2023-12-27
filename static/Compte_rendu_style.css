@@ -1,0 +1,224 @@
+:root { 
+    --primary-color: #302AE6; 
+    --secondary-color: #536390; 
+    --text-color: #424242; 
+    --background-color: #F3EEEC; 
+    --heading-color: #292922; 
+    --container-bg-color: #f8f8f8;
+    --button-hover-bg-color: #3f51b5;
+    --chat-bg-color: #f8f8f8;
+    --input-border-color: #ddd;
+    --slider-bg-color: #ccc;
+    --slider-knob-color: #fff;
+    --button-bg-color: #5c6bc0;;
+    --arrow-color: #000; /* Default arrow color for light theme */
+    --toggle-button-bg-color: #fff; /* Background color for toggle button in light theme */
+
+} 
+
+[theme="dark"] { 
+    --primary-color: #9A97F3; 
+    --secondary-color: #818cab; 
+    --text-color: #e1e1ff; 
+    --background-color: #161625; 
+    --heading-color: #818cab; 
+    --container-bg-color: #1a1a2e;
+    --button-hover-bg-color: #37465c;
+    --input-border-color: #555;
+    --slider-bg-color: #66bb6a;
+    --slider-knob-color: #fff;
+    --button-bg-color: #7a79d7;
+    --chat-bg-color: #1a1a2e;
+    --arrow-color: #fff; /* Arrow color for dark theme */
+    --toggle-button-bg-color: #7a79d7; /* Dark theme color for toggle button */
+} 
+
+body { 
+    background-color: var(--background-color); 
+    color: var(--text-color); 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+    display: flex;
+    flex-direction: row;
+    justify-content: center; /* Centers children horizontally */
+    align-items: flex-start; /* Aligns children to the start of the cross axis */
+
+}
+
+.lab-report {
+    width: 80%;
+    min-height: 100vh; /* Minimum height to cover the viewport */
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto; /* Enable vertical scrolling if content overflows */
+    /* Remove float:left; as Flexbox is handling the layout */
+}
+
+
+.container {
+    background-color: var(--container-bg-color);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Takes the full width of its parent (.lab-report) */
+}
+
+h1 {
+    color: var(--heading-color);
+    text-align: center;
+}
+
+.theme-slider { 
+    display: inline-block; 
+    height: 34px; 
+    position: relative; 
+    width: 60px; 
+} 
+
+.theme-slider input { 
+    display: none; 
+} 
+
+.slider { 
+    background-color: var(--slider-bg-color); 
+    bottom: 0; 
+    cursor: pointer; 
+    left: 0; 
+    position: absolute; 
+    right: 0; 
+    top: 0; 
+    transition: .4s; 
+} 
+
+.slider:before { 
+    background-color: var(--slider-knob-color); 
+    bottom: 4px; 
+    content: ""; 
+    height: 26px; 
+    left: 4px; 
+    position: absolute; 
+    transition: .4s; 
+    width: 26px; 
+} 
+
+input:checked + .slider { 
+    background-color: #66bb6a; 
+} 
+
+input:checked + .slider:before { 
+    transform: translateX(26px); 
+} 
+
+.slider.round { 
+    border-radius: 34px; 
+} 
+
+.slider.round:before { 
+    border-radius: 50%; 
+}
+
+
+latex-js{
+    display: block; /* Changed to block for better control */
+    width: 100%;
+    text-align: center; /* Center the content */
+    margin: auto; /* Additional centering for block elements */
+    font-size: 1.2em; /* Adjust the font size as needed */
+}
+
+
+.editable-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.editable-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+/* Add to your existing modal styles */
+#options-modal .modal-content button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    /* additional button styling */
+}
+
+/* Add any additional styling as needed */
+
+.data-input-row.header-row {
+    font-weight: bold;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+
+
+.data-input-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-bottom: 5px;
+}
+
+.data-input-row input {
+    flex: 1 1 auto; /* Adjust based on the desired flexibility */
+    width: 60px; /* Adjust width as needed */
+    min-width: 40px;
+    margin-right: 5px;
+    padding: 5px;
+}
+
+.data-input-row hr {
+    width: 100%;
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 10px 0;
+}
+
+
+/* Add this to your CSS file */
+.img-container { /* Change .img-container to the actual class or element that contains the image */
+    max-width: 100%;
+    overflow: hidden; /* or use 'auto' if you want scrollbars when the content overflows */
+}
+.img-container img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: auto;
+}
+
+/* You might also want to ensure the image doesn't break the layout when it's too big */
+.resizable-image {
+    max-width: 100%;
+    height: auto;
+}
+
+
+
+
+.drop-zone {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    margin: 10px auto; /* auto margins will center the block */
+    text-align: center;
+    background-color: #f7f7f7;
+    display: block; /* Change to block to take full width of its container */
+    width: fit-content; /* Width depends on the content */
+    resize: both;
+    overflow: hidden;
+}
+
+/* Styling for images within the drop zone */
+.drop-zone img {
+    display: block; /* Use block to enable margin: auto */
+    max-width: 100%; /* Maximum relative to the container */
+    max-height: 100%; /* Maximum relative to the container */
+    height: auto; /* Maintain aspect ratio */
+    margin: auto; /* This will center the image horizontally */
+}
