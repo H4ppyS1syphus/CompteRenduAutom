@@ -63,6 +63,10 @@ Les contributions sont les bienvenues pour améliorer et étendre les fonctionna
 ## Licence
 Ce projet est sous licence MIT.
 
+## A faire
+
+Mieux gérer le Latex dans la génération du code html. Mieux gérer les boxes créées par les boutons pour pouvoir facilement changer leur place. Générer directement des pdf plutot que passer par une page HTML
+Pouvroir insérer des boxes, pouvoir sauvegarder un comtpe rendu en court de création
 
 ## Prompt de l'agent
 
