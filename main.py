@@ -10,9 +10,17 @@ import io
 import base64
 from openai import OpenAI
 
-client = openai.Client(api_key='<YOUR-API-KEY>')
-my_assistant = client.beta.assistants.retrieve("<YOUR-AGENT-KEY>")
-assistant_id = "<YOUR-AGENT-KEY>"
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+OPENAI_AGENT_ID = os.getenv('OPENAI_AGENT_ID')
+
+
+client = openai.Client(api_key=OPENAI_API_KEY)
+my_assistant = client.beta.assistants.retrieve(OPENAI_AGENT_ID)
+assistant_id = OPENAI_AGENT_ID
 
 def thread_creation():
     my_thread = client.beta.threads.create()
