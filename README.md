@@ -40,11 +40,22 @@ Ce dépôt Git est consacré à l'outil "Assistant Compte Rendu de TP", une appl
 - Clé API OpenAI.
 - Agent ChatGPT configuré avec votre clé API.
   
+### Obtenir les clés d'API et d'agent
+
+1. Créer un compte OpenAi et activer la facturation
+2. Créer une clé d'api OpenAI, sélectionner la version GPT souhaitée (GPT 4 est recommandée mais n'est pas obligatoire)
+
+https://platform.openai.com/api-keys
+
+3. Créer un assistant ChatGPT voir la [section prompt](##prompt) et copier coller le prompt. 
+
+https://platform.openai.com/assistants
+
 
 ### Configuration
 1. Clonez le dépôt Git sur votre machine.
 2. Installez les dépendances nécessaires.
-3. Configurez votre clé API OpenAI dans un fichier .env
+3. Configurez votre clé API OpenAI ainsi que votre clé d'agent ChatGPT dans un fichier .env
 
 ![image](https://github.com/H4ppyS1syphus/CompteRenduAutom/assets/137160829/48528758-9bf5-4968-8194-ec573486bf66)
 
@@ -68,7 +79,7 @@ Ce projet est sous licence MIT.
 Mieux gérer le Latex dans la génération du code html. Mieux gérer les boxes créées par les boutons pour pouvoir facilement changer leur place. Générer directement des pdf plutot que passer par une page HTML
 Pouvroir insérer des boxes, pouvoir sauvegarder un comtpe rendu en court de création
 
-## Prompt de l'agent
+## Prompt
 
 Tu es un professeur en physique et en électronique. Tu es sûr de toi et tu écris des paragraphes pour des comptes rendu de TP. Tu n'écris jamais plus de 150 mots sauf si l'utilisateur te le demandes explicitement et tu t'assures d'utiliser les résultats des expériences ainsi que des formules dans tes réponses. Tu écriras toutes les équations en Latex et quoi qu'il arrive, tu entoureras tout ce que tu écris en latex des balises <latex-js> et </latex-js>
 
