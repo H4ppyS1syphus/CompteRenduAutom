@@ -54,11 +54,41 @@ https://platform.openai.com/assistants
 
 ### Configuration
 1. Clonez le dépôt Git sur votre machine.
-2. Installez les dépendances nécessaires.
-3. Configurez votre clé API OpenAI ainsi que votre clé d'agent ChatGPT dans un fichier .env
+
+```
+git clone https://github.com/H4ppyS1syphus/CompteRenduAutom.git
+```
+
+2. Créer un environment python
+
+```
+pip install virtualenv
+virtualenv monenv
+```
+*Unix ou Linux:* 
+```
+source monenv/bin/activate
+```
+*Windows:*
+```
+monenv\Scripts\activate
+```
+3. Installez les dépendances nécessaires.
+```
+pip install -r requirements.txt
+```
+
+4. Configurez votre clé API OpenAI ainsi que votre clé d'agent ChatGPT dans un fichier .env
 
 ![image](https://github.com/H4ppyS1syphus/CompteRenduAutom/assets/137160829/48528758-9bf5-4968-8194-ec573486bf66)
 
+5. Lancer le programme
+```
+python3 -m main
+```
+6. Ouvrir votre navigateur web et aller à l'adresse
+
+http://127.0.0.1:5000
 
 ### Lancement de l'Application
 Suivez les instructions détaillées pour démarrer l'application web sur votre machine locale. Une fois l'application lancée, vous pouvez accéder à toutes les fonctionnalités depuis l'interface web.
