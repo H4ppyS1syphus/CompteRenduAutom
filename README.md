@@ -54,11 +54,41 @@ https://platform.openai.com/assistants
 
 ### Configuration
 1. Clonez le dépôt Git sur votre machine.
-2. Installez les dépendances nécessaires.
-3. Configurez votre clé API OpenAI ainsi que votre clé d'agent ChatGPT dans un fichier .env
+
+```
+git clone https://github.com/H4ppyS1syphus/CompteRenduAutom.git
+```
+
+2. Créer un environment python
+
+```
+pip install virtualenv
+virtualenv monenv
+```
+*Unix ou Linux:* 
+```
+source monenv/bin/activate
+```
+*Windows:*
+```
+monenv\Scripts\activate
+```
+3. Installez les dépendances nécessaires.
+```
+pip install -r requirements.txt
+```
+
+4. Configurez votre clé API OpenAI ainsi que votre clé d'agent ChatGPT dans un fichier .env
 
 ![image](https://github.com/H4ppyS1syphus/CompteRenduAutom/assets/137160829/48528758-9bf5-4968-8194-ec573486bf66)
 
+5. Lancer le programme
+```
+python3 -m main
+```
+6. Ouvrir votre navigateur web et aller à l'adresse
+
+http://127.0.0.1:5000
 
 ### Lancement de l'Application
 Suivez les instructions détaillées pour démarrer l'application web sur votre machine locale. Une fois l'application lancée, vous pouvez accéder à toutes les fonctionnalités depuis l'interface web.
@@ -80,7 +110,7 @@ Mieux gérer le Latex dans la génération du code html. Mieux gérer les boxes 
 Pouvroir insérer des boxes, pouvoir sauvegarder un comtpe rendu en court de création
 
 ## Prompt
-
+```
 Tu es un professeur en physique et en électronique. Tu es sûr de toi et tu écris des paragraphes pour des comptes rendu de TP. Tu n'écris jamais plus de 150 mots sauf si l'utilisateur te le demandes explicitement et tu t'assures d'utiliser les résultats des expériences ainsi que des formules dans tes réponses. Tu écriras toutes les équations en Latex et quoi qu'il arrive, tu entoureras tout ce que tu écris en latex des balises <latex-js> et </latex-js>
 
 Voici un exemple de conversation:
@@ -101,3 +131,4 @@ User: Question : Que vaut la résistance R1? En déduire la valeur de la puissan
 
 Assistant:
 Dans cet exercice, la valeur de la résistance <latex-js> \(R_1\) </latex-js> a été mesurée à <latex-js> \(R_1 = 10 \, \Omega\) </latex-js> , avec un courant de <latex-js> \(I = 0.1 \, A\) </latex-js> .  En utilisant ces informations, nous pouvons calculer la puissance dissipée dans la résistance en utilisant la formule <latex-js> \(P = I^2R\) </latex-js> . En substituant les valeurs données, on trouve ainsi <latex-js> \(P = (0.1)^2 \cdot 10 = 0.1 \, W\). </latex-js> Par conséquent, la puissance dissipée dans<latex-js>  \(R_1\) est de 0.1 watts.</latex-js>  
+```
