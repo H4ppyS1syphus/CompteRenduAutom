@@ -7,9 +7,10 @@
 Ce dépôt Git est consacré à l'outil "Assistant Compte Rendu de TP", une application web conçue pour faciliter la création, la gestion et la personnalisation des rapports de travaux pratiques (TP), ainsi que l'intégration d'une fonctionnalité de chat basée sur ChatGPT d'OpenAI.
 
 <p align="center">
-  <img src="https://github.com/H4ppyS1syphus/CompteRenduAutom/assets/137160829/5a401075-585a-48e7-a77b-492c56c1e147" alt="Gestion des images" width="500"/>
+  <img src="https://github.com/H4ppyS1syphus/CompteRenduAutom/assets/137160829/5530585e-5d85-44db-96bd-c7ac43701392" alt="Gestion des images" width="500"/>
   <br>
   <em>Gestion des images</em>
+
 </p>
 
 ## Fonctionnalités
