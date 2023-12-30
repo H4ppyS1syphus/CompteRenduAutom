@@ -6,6 +6,12 @@
 ## Présentation
 Ce dépôt Git est consacré à l'outil "Assistant Compte Rendu de TP", une application web conçue pour faciliter la création, la gestion et la personnalisation des rapports de travaux pratiques (TP), ainsi que l'intégration d'une fonctionnalité de chat basée sur ChatGPT d'OpenAI.
 
+<p align="center">
+  <img src="https://github.com/H4ppyS1syphus/CompteRenduAutom/assets/137160829/5a401075-585a-48e7-a77b-492c56c1e147" alt="Gestion des images" width="500"/>
+  <br>
+  <em>Gestion des images</em>
+</p>
+
 ## Fonctionnalités
 ### Édition et Gestion de Rapport
 - **Édition de Texte** : Ajout de titres de sections, sous-titres, et paragraphes éditables.
@@ -14,16 +20,26 @@ Ce dépôt Git est consacré à l'outil "Assistant Compte Rendu de TP", une appl
 - **Création de Tableaux Dynamiques** : Tableaux éditables avec personnalisation des dimensions.
 - **Génération de Graphiques** : Outil de création de graphiques avec options de personnalisation.
 - **Thèmes d'Interface** : Basculement entre les thèmes clair et sombre.
+
+<p align="center">
+  <img src="https://github.com/H4ppyS1syphus/CompteRenduAutom/assets/137160829/9185915c-f97f-4976-b298-df363d0a64d2" alt="Mode clair/sombre" width="500"/>
+  <br>
+  <em>Mode clair/sombre</em>
+</p>
+  
 - **Exportation en HTML** : Génération et téléchargement de rapports en format HTML.
 
-![image](https://github.com/H4ppyS1syphus/CompteRenduAutom/assets/137160829/d1786941-9f1c-4c0e-a9f9-6288e316b062)
-                              *Boutons pour gérer la page*
+<p align="center">
+  <img src="https://github.com/H4ppyS1syphus/CompteRenduAutom/assets/137160829/7a9e511c-b895-49d0-b9f2-79c06c479fcd" alt="Gestion des graphiques" width="500"/>
+  <br>
+  <em>Gestion des graphiques</em>
+</p>
 
-![image](https://github.com/H4ppyS1syphus/CompteRenduAutom/assets/137160829/7a9e511c-b895-49d0-b9f2-79c06c479fcd)
-                                *Gestion des graphiques*
-
-![image](https://github.com/H4ppyS1syphus/CompteRenduAutom/assets/137160829/ab07a127-21ff-46a0-8eef-ec20de1da698)
-                      *GUI simplifiée pour les régressions linéaires*
+<p align="center">
+  <img src="https://github.com/H4ppyS1syphus/CompteRenduAutom/assets/137160829/ab07a127-21ff-46a0-8eef-ec20de1da698" alt="UI simplifiée pour les régressions linéaires" width="500"/>
+  <br>
+  <em>UI simplifiée pour les régressions linéaires</em>
+</p>
 
 
 ### Chat avec ChatGPT
@@ -31,7 +47,7 @@ Ce dépôt Git est consacré à l'outil "Assistant Compte Rendu de TP", une appl
 - **Réponses Dynamiques** : Le chat fournit des réponses en temps réel, aidant dans la rédaction et la recherche d'informations.
 - **Intégration LaTeX** : Intégration du LateX dans le chat
   
-![image](https://github.com/H4ppyS1syphus/CompteRenduAutom/assets/137160829/531e474e-6457-4f09-9cda-56a6547bf599)
+![Screencast from 2023-12-30 18-04-09](https://github.com/H4ppyS1syphus/CompteRenduAutom/assets/137160829/ed505d2a-689a-4745-96b6-a7f716ad30aa)
 
 
 ## Guide d'Utilisation
@@ -106,8 +122,9 @@ Ce projet est sous licence MIT.
 
 ## A faire
 
-Mieux gérer le Latex dans la génération du code html. Mieux gérer les boxes créées par les boutons pour pouvoir facilement changer leur place. Générer directement des pdf plutot que passer par une page HTML
-Pouvroir insérer des boxes, pouvoir sauvegarder un comtpe rendu en court de création
+-Mieux gérer le Latex dans la génération du code html.
+-Générer directement des pdf plutot que passer par une page HTML
+
 
 ## Prompt
 ```
