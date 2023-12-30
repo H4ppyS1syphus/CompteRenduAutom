@@ -1,30 +1,59 @@
-function addEditableContainer(type, placeholderText) {
-    const container = $('<div class="editable-container"></div>');
-    const editableElement = $(`<${type} contenteditable="true">${placeholderText}</${type}>`);
-    const closeButton = $('<button class="close-btn">Close</button>');
+let containerCounter = 0; // A counter to assign unique IDs
 
-    closeButton.click(function() {
-        container.remove();
-    });
+function addEditableContainer(type, content, isSpecialContent = false) {
+    containerCounter++;
+    const containerId = `editable-container-${containerCounter}`;
+    const container = $('<div class="editable-container" id="' + containerId + '"></div>');
 
-    container.append(editableElement, closeButton);
+    // Create move up, move down, and close buttons
+    const moveUpButton = $('<button class="move-up-btn">↑</button>');
+    const moveDownButton = $('<button class="move-down-btn">↓</button>');
+    const closeButton = $('<button class="close-btn"></button>');
+
+    let editableElement;
+    if (!isSpecialContent) {
+        editableElement = $('<' + type + ' contenteditable="true">' + content + '</' + type + '>');
+    } else {
+        if (type === 'Latex') {
+            editableElement = $('<' + type + ' contenteditable="true">' + content + '</' + type + '>');
+        } else {
+            // Handle other special content like tables, graphs, etc.
+            editableElement = $(content);
+        }
+    }
+
+    // Add event handlers for buttons
+    closeButton.click(function() { container.remove(); });
+    moveUpButton.click(function() { container.prev('.editable-container').before(container); });
+    moveDownButton.click(function() { container.next('.editable-container').after(container); });
+
+    // Append buttons and the editable element to the container
+    container.append(editableElement, closeButton, moveUpButton, moveDownButton);
     $('#content-area').append(container);
 }
 
+
+
+
+// Example usage
 $(document).ready(function() {
     $('#add-section').click(function() {
         addEditableContainer('h2', 'Section Title');
     });
 
+    // Handler for adding a subtitle
     $('#add-subtitle').click(function() {
         addEditableContainer('h3', 'Subtitle');
     });
 
+    // Handler for adding a paragraph
     $('#add-paragraph').click(function() {
         addEditableContainer('p', 'New paragraph...');
     });
-
+    
 });
+
+
 
 document.getElementById('toggle-button').addEventListener('click', function() {
     const buttonsContainer = document.querySelector('.buttons');
@@ -78,7 +107,7 @@ document.getElementById('send-message').addEventListener('click', function() {
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({ message: input.value }),
-        success: function(data) {
+        success: function() {
             // Check status periodically
             var checkStatus = setInterval(function() {
                 $.get('/check-status', function(statusData) {
@@ -101,30 +130,45 @@ document.getElementById('send-message').addEventListener('click', function() {
 });
 
 function addEditableContainerLatex(type, placeholderText) {
-    const container = $('<div class="editable-container"></div>');
-    const editableElement = $(`<${type} contenteditable="true">${placeholderText}</${type}>`);
-    const closeButton = $('<button class="close-btn">Close</button>');
-    const convertButton = $('<button class="convert-btn">Convert to LaTeX</button>');
+    containerCounter++;
+    const containerId = `editable-container-${containerCounter}`;
+    const container = $('<div class="editable-container" id="' + containerId + '"></div>');
 
+        // Create move up, move down, and close buttons
+    const moveUpButton = $('<button class="move-up-btn">↑</button>');
+    const moveDownButton = $('<button class="move-down-btn">↓</button>');
+    
+
+    const editableElement = $('<' + type + ' contenteditable="true"></' + type + '>').text(placeholderText);
+    const closeButton = $('<button class="close-btn"></button>');
+    const convertButton = $('<button class="latex-btn"><></button>');
+    // Event handler to remove the container
     closeButton.click(function() {
         container.remove();
     });
 
+    // Event handler to convert the content to a LaTeX-js element
     convertButton.click(function() {
-        // Convert the editable paragraph to a non-editable latex-js element
         const latexContent = editableElement.text();
-        editableElement.replaceWith(`<latex-js>${latexContent}</latex-js>`);
-        convertButton.remove(); // Remove convert button after conversion
+        editableElement.replaceWith('<latex-js>' + latexContent + '</latex-js>');
+        convertButton.remove(); // Remove the convert button after conversion
     });
 
-    container.append(editableElement, closeButton, convertButton);
+    // Add event handlers for buttons
+    closeButton.click(function() { container.remove(); });
+    moveUpButton.click(function() { container.prev('.editable-container').before(container); });
+    moveDownButton.click(function() { container.next('.editable-container').after(container); });
+
+    // Append buttons and the editable element to the container
+    container.append(editableElement, closeButton, moveUpButton, moveDownButton, convertButton);
     $('#content-area').append(container);
 }
 
+// Add event listener for the LaTeX button
 document.getElementById('add-latex').addEventListener('click', function() {
-    var messages = document.getElementById('chat-messages');
-    addEditableContainerLatex('p', 'Your LaTeX content here'); // Assuming LaTeX content goes in a paragraph
+    addEditableContainerLatex('p', 'Your LaTeX content here');
 });
+
 
 
 
@@ -141,13 +185,33 @@ function switchTheme(e) {
 toggleSwitch.addEventListener('change', switchTheme, false);
 
 document.addEventListener('DOMContentLoaded', function() {
-    var contentArea = document.getElementById('content-area');
     var addImageButton = document.getElementById('add-image');
 
     addImageButton.addEventListener('click', function() {
-        var dropZone = createDropZone();
-        contentArea.appendChild(dropZone);
+        addEditableContainerImage();
     });
+
+    function addEditableContainerImage() {
+        containerCounter++;
+        const containerId = `editable-container-${containerCounter}`;
+        const container = $('<div class="editable-container" id="' + containerId + '"></div>');
+
+        // Create move up, move down, and close buttons
+        const moveUpButton = $('<button class="move-up-btn">↑</button>');
+        const moveDownButton = $('<button class="move-down-btn">↓</button>');
+        const closeButton = $('<button class="close-btn"></button>');
+
+        // Create a drop zone for images
+        const dropZone = createDropZone();
+
+        closeButton.click(function() { container.remove(); });
+        moveUpButton.click(function() { container.prev('.editable-container').before(container); });
+        moveDownButton.click(function() { container.next('.editable-container').after(container); });
+
+        // Append buttons and drop zone to the container
+        container.append(dropZone, closeButton, moveUpButton, moveDownButton);
+        $('#content-area').append(container);
+    }
 
     function createDropZone() {
         var dropZone = document.createElement('div');
@@ -209,7 +273,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    var contentArea = document.getElementById('content-area');
     var addTableButton = document.getElementById('add-table');
     var modal = document.getElementById('add-table-modal');
     var closeModal = document.getElementsByClassName('close-btn')[0];
@@ -228,8 +291,8 @@ document.addEventListener('DOMContentLoaded', function() {
         var cols = document.getElementById('table-cols').value;
 
         if (rows > 0 && cols > 0) {
-            var table = createTable(rows, cols);
-            contentArea.appendChild(table);
+            var tableHTML = createTable(rows, cols).outerHTML;
+            addEditableContainer('div', tableHTML, true);
             modal.style.display = 'none'; // Close the modal
         } else {
             alert("Please enter valid numbers for rows and columns.");
@@ -256,26 +319,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         return table;
     }
-        function getTableData(table) {
-        var rows = table.rows;
-        var data = [];
-    
-        for (var i = 0; i < rows.length; i++) {
-            var cells = rows[i].cells;
-            if (cells.length >= 2) { // Ensure there are at least two cells for X and Y values
-                var x = parseFloat(cells[0].innerText || cells[0].textContent);
-                var y = parseFloat(cells[1].innerText || cells[1].textContent);
-    
-                if (!isNaN(x) && !isNaN(y)) {
-                    data.push([x, y]);
-                }
-            }
-        }
-    
-        return data;
-    }
-
 });
+
 
 document.addEventListener('DOMContentLoaded', function() {
     var addGraphButton = document.getElementById('add-graph');
@@ -406,8 +451,8 @@ document.addEventListener('DOMContentLoaded', function() {
             img.style.borderRadius = '4px';      // Optional: rounds the corners
             img.style.padding = '5px';           // Optional: adds padding around the image
         
-            var contentArea = document.getElementById('content-area');
-            contentArea.appendChild(img);
+
+            addEditableContainer('div', img.outerHTML, true);
             graphModal.style.display = 'none';
         })
         .catch(error => {
@@ -451,6 +496,14 @@ document.getElementById('generate-HTML').addEventListener('click', async functio
     downloadLink.click();
 });
 
+
+function saveLabReport() {
+    var labReportHtml = document.querySelector('.lab-report').innerHTML;
+    localStorage.setItem('savedLabReport', labReportHtml);
+    alert('Lab report saved!');
+}
+
+document.getElementById('save-lab-report').addEventListener('click', saveLabReport);
 
 
 

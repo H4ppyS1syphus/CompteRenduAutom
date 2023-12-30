@@ -58,6 +58,69 @@ body {
     overflow-y: auto; /* Enable vertical scrolling if content overflows */
 }
 
+.editable-container {
+    position: relative; /* Allows absolute positioning within the container */
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: var(--container-bg-color); /* Ensuring a background color */
+    min-height: 60px;
+}
+
+.editable-container button {
+    position: absolute;
+    right: 5px;
+    background-color: var(--button-bg-color); /* Adding background color */
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    user-select: none;
+    padding: 4px 8px;
+    opacity: 1; /* Ensure buttons are fully visible */
+    z-index: 50; /* Ensure buttons are above other elements */
+    visibility: visible; /* Ensure buttons are not hidden */
+}
+
+.move-up-btn, .move-down-btn {
+    position: absolute;
+    right: 5px;
+    background-color: var(--button-bg-color); /* Use theme-based background color */
+    color: white; /* Text color */
+    border: none;
+    cursor: pointer;
+    font-size: 16px; /* Adjust font size as needed */
+    user-select: none;
+    padding: 8px; /* Padding to create a circular shape */
+    border-radius: 50%; /* Makes the button circular */
+    text-align: center;
+    line-height: 1; /* Adjust line height for vertical alignment */
+    width: 30px; /* Width of the button */
+    height: 30px; /* Height of the button */
+    z-index: 100;
+    visibility: visible;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3); /* Optional: adds shadow for depth */
+    transition: background-color 0.3s; /* Smooth transition for theme change */
+}
+
+.move-up-btn {
+    top: 5px;
+    content: '↑';
+}
+
+.move-down-btn {
+    top: 45px; /* Adjust the position based on the size of the button */
+    content: '↓';
+}
+
+/* Update the hover effect to match the theme */
+button:hover {
+    background-color: var(--button-hover-bg-color);
+}
+
+
+
+
+
 
 
 .container {
@@ -74,8 +137,8 @@ h1 {
 }
 
 
-.buttons{
-    width: 70%; /* Full width to center the container */
+.buttons {
+    width: 60%; /* Full width to center the container */
     box-sizing: border-box;
     padding: 20px;
     position: fixed; /* Fixed position to keep it at the bottom */
@@ -85,8 +148,12 @@ h1 {
     transition: transform 0.5s ease, opacity 0.5s ease;
     transform: translateY(0);
     opacity: 1;
-    position: fixed; /* Keeps the panel fixed */
-    left: 0;
+    left: 5%; /* Adjust this value to move the container to the right */
+    /* Add rounded corners */
+    border-radius: 10px; /* Adjust as needed for thef desired corner roundness */
+    z-index: 150;
+    /* Add shadow */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Horizontal offset, vertical offset, blur radius, color */
 }
 
 /* Keep the original button styling */
@@ -116,7 +183,7 @@ button:hover {
     position: fixed; /* Keeps the button in a fixed position */
     bottom: 90px; /* Position at the bottom */
     right: 63.55%; /* Position to the right */
-    z-index: 11; /* Higher than the buNtton panel */
+    z-index: 151; /* Higher than the buNtton panel */
     background-color: #fff; /* Circle background color */
     border-radius: 50%; /* Makes it circular */
     width: 40px; /* Size of the circle */
@@ -149,28 +216,32 @@ button:hover {
 
 
 .chat-container {
-    width: 30%; /* Adjust as needed */
-    overflow-y: auto; /* Enable scrolling */
+    position: fixed; /* Fix the position */
+    width: 30%;
+    bottom: 0;
+    right: 0;
+    top: 0; /* Stretch from top to bottom */
+    padding: 0px;
+    padding-bottom: 0px; /* Space for input and button */
     box-sizing: border-box;
-    padding: 20px;
+    overflow-y: auto; /* Scrollbar for this container only */
     background-color: var(--chat-bg-color);
-    min-height: 100vh; /* Adjust as needed */
+    z-index: 2; /* Ensure it's above other elements */
 }
 
 #chat-messages {
-    height: 90%; /* Adjusted for input and button height */
+    height: calc(100% - 70px); /* Adjust this value to leave space for the input box */
     overflow-y: auto;
     margin-bottom: 20px;
 }
 
 #chat-input {
-    position: fixed;
-    width: 25%; /* Adjusted for button width */
-    margin-bottom: 40px;
+    position: absolute;
+    width: calc(100% - 90px); /* Adjust width to leave space for send button */
     bottom: 10px;
-    min-height: 30px; /* Minimum height for the input field */
-    max-height: 100px; /* Maximum height for the input field */
-    padding: 0 10px;
+    left: 10px; /* Align with container padding */
+    height: 30px; /* Minimum height for the input field */
+    padding: 0 0px;
     border: 1px solid var(--input-border-color);
     border-radius: 4px;
     overflow-y: auto; /* Enable vertical scrolling */
@@ -178,9 +249,10 @@ button:hover {
 }
 
 #send-message {
-    width: 80px;
-    position: fixed;
-    bottom: 0px;
+    position: absolute;
+    bottom: 1px;
+    right: 0px;
+    width: 70px;
     height: 30px;
     border: none;
     border-radius: 4px;
@@ -199,56 +271,62 @@ button:hover {
     position: absolute;
     top: 40px;
     left: 30px;
-} 
+}   
 
 .theme-slider { 
-    display: inline-block; 
-    height: 34px; 
-    position: relative; 
-    width: 60px; 
-} 
+    position: relative;
+    display: inline-block;
+    width: 44px; /* Smaller width for the switch */
+    height: 24px; /* Smaller height for the switch */
+}
 
 .theme-slider input { 
-    display: none; 
+    opacity: 0;
+    width: 0;
+    height: 0;
 } 
 
-.slider { 
-    background-color: var(--slider-bg-color); 
-    bottom: 0; 
-    cursor: pointer; 
-    left: 0; 
-    position: absolute; 
-    right: 0; 
-    top: 0; 
-    transition: .4s; 
-} 
-
-.slider:before { 
-    background-color: var(--slider-knob-color); 
-    bottom: 4px; 
-    content: ""; 
-    height: 26px; 
-    left: 4px; 
-    position: absolute; 
-    transition: .4s; 
-    width: 26px; 
-} 
-
-input:checked + .slider { 
-    background-color: #66bb6a; 
-} 
-
-input:checked + .slider:before { 
-    transform: translateX(26px); 
-} 
-
-.slider.round { 
-    border-radius: 34px; 
-} 
-
-.slider.round:before { 
-    border-radius: 50%; 
+.theme-slider .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--slider-bg-color);
+    transition: .4s;
+    border-radius: 20px;
+    box-shadow: 0 0 0.25em rgba(67,71,85,0.27), 0.2px 0.2em 24px 0 rgba(1,29,77,0.15);
 }
+
+.theme-slider .slider:before {
+    position: absolute;
+    content: '';
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: yellow;
+    transition: .4s;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 16px;
+}
+
+.theme-slider input:checked + .slider {
+    background-color: #476173;
+}
+
+.theme-slider input:checked + .slider:before {
+    transform: translateX(20px);
+    background-color: transparent;
+    border-radius: 50%;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    box-shadow: inset -5px -3px 0 #d8e9ef;
+}
+
 
 .message {
     margin-bottom: 20px; /* Adjust this value as needed for spacing */
@@ -266,14 +344,33 @@ latex-js{
     width: 100%;
     text-align: center; /* Center the content */
     margin: auto; /* Additional centering for block elements */
-    font-size: 1.2em; /* Adjust the font size as needed */
+    font-size: 50; /* Adjust the font size as needed */
+}
+
+.latex-btn {
+    padding: 10px 10px; /* Smaller padding for a tinier button */
+    font-size: 4x; /* Smaller font size */
+    background-color: var(--button-bg-color); /* Use the theme-based background color */
+    color: white; /* Text color for the button */
+    border: none;
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer;
+    margin-right: 45px; /* Margin to separate it from other elements */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Optional: adds shadow for depth */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+    position: relative; /* Use relative positioning */
+    top: 25px; /* Move button upwards by 10px */
+}
+
+.latex-btn:hover {
+    background-color: var(--button-hover-bg-color); /* Change color on hover */
 }
 
 /* Modal Styles */
 .modal {
     display: none; /* Ensure modal is hidden initially */
     position: fixed;
-    z-index: 1;
+    z-index: 200;
     left: 0;
     top: 0;
     width: 100%;
@@ -321,12 +418,40 @@ latex-js{
     color: #999;
 }
 
-.close-btn:hover,
-.close-btn:focus {
-    color: black;
-    text-decoration: none;
+.close-btn {
+    position: absolute;
+    left : 98.5%; 
+    top: -15px;
+    background-color: var(--button-bg-color); /* Use theme-based background color */
+    color: white; /* Text color */
+    border: none;
     cursor: pointer;
+    font-size: 16px; /* Adjust font size as needed */
+    user-select: none;
+    width: 25px; /* Width of the button */
+    height: 25px; /* Height of the button */
+    border-radius: 50%; /* Makes the button circular */
+    text-align: center;
+    line-height: 25px; /* Adjust line height for vertical alignment */
+    padding: 0; /* Padding removed for circular button */
+    z-index: 100;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3); /* Optional: adds shadow for depth */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s; /* Smooth transition for theme change */
 }
+
+.close-btn::before {
+    content : '×';
+    font-weight: bold; /* Makes the symbol bolder */
+}
+
+/* Update the hover effect to match the theme */
+.close-btn:hover {
+    background-color: var(--button-hover-bg-color);
+}
+
 
 /* Table Styles */
 .editable-table {
