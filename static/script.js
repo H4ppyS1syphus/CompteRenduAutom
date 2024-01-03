@@ -12,10 +12,10 @@ function addEditableContainer(type, content, isSpecialContent = false) {
 
     let editableElement;
     if (!isSpecialContent) {
-        editableElement = $('<' + type + ' contenteditable="true">' + content + '</' + type + '>');
+        editableElement = $('<' + type + ' contenteditable="true">' + content + '</' + type + 'type>');
     } else {
         if (type === 'Latex') {
-            editableElement = $('<' + type + ' contenteditable="true">' + content + '</' + type + '>');
+            editableElement = $('<' + Latex-js + ' contenteditable="true">' + content + '</' + Latex-js + '>');
         } else {
             // Handle other special content like tables, graphs, etc.
             editableElement = $(content);
@@ -134,35 +134,30 @@ function addEditableContainerLatex(type, placeholderText) {
     const containerId = `editable-container-${containerCounter}`;
     const container = $('<div class="editable-container" id="' + containerId + '"></div>');
 
-        // Create move up, move down, and close buttons
+    // Create move up, move down, and close buttons
     const moveUpButton = $('<button class="move-up-btn">↑</button>');
     const moveDownButton = $('<button class="move-down-btn">↓</button>');
-    
-
-    const editableElement = $('<' + type + ' contenteditable="true"></' + type + '>').text(placeholderText);
     const closeButton = $('<button class="close-btn"></button>');
     const convertButton = $('<button class="latex-btn"><></button>');
-    // Event handler to remove the container
-    closeButton.click(function() {
-        container.remove();
-    });
 
+    const editableElement = $('<' + type + ' contenteditable="true"></' + type + '>').text(placeholderText);
+    
     // Event handler to convert the content to a LaTeX-js element
     convertButton.click(function() {
         const latexContent = editableElement.text();
-        editableElement.replaceWith('<latex-js>' + latexContent + '</latex-js>');
+        const latexElement = $('<latex-js>').text(latexContent);
+        editableElement.replaceWith(latexElement);
         convertButton.remove(); // Remove the convert button after conversion
     });
 
-    // Add event handlers for buttons
     closeButton.click(function() { container.remove(); });
     moveUpButton.click(function() { container.prev('.editable-container').before(container); });
     moveDownButton.click(function() { container.next('.editable-container').after(container); });
 
-    // Append buttons and the editable element to the container
     container.append(editableElement, closeButton, moveUpButton, moveDownButton, convertButton);
     $('#content-area').append(container);
 }
+
 
 // Add event listener for the LaTeX button
 document.getElementById('add-latex').addEventListener('click', function() {
@@ -466,7 +461,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 document.getElementById('generate-HTML').addEventListener('click', async function() {
     // Load the CSS file content dynamically
-    const cssFilePath = 'static/Compte_rendu_style.css'; // Adjust the path to your CSS file
+    const cssFilePath = '/static/Compte_rendu_style.css'; // Adjust the path to your CSS file
     const cssFileContent = await fetch(cssFilePath).then(response => response.text());
 
     // Clone the lab report element to manipulate without affecting the original
@@ -476,15 +471,33 @@ document.getElementById('generate-HTML').addEventListener('click', async functio
     const buttons = labReportElement.querySelectorAll('button');
     buttons.forEach(button => button.remove());
 
+    // Replace LaTeX-js elements with rendered LaTeX content
+    // Note: This part needs adjustment based on how you choose to render LaTeX (MathJax or LaTeX.js)
+    const latexElements = labReportElement.querySelectorAll('latex-js');
+    latexElements.forEach(el => {
+        const latexContent = el.textContent;
+        // Example: Replace with an <img> tag or similar that displays the rendered LaTeX
+        // Adjust this part based on your LaTeX rendering approach
+        const renderedLatex = document.createElement('div');
+        renderedLatex.innerHTML = latexContent;
+        el.parentNode.replaceChild(renderedLatex, el);
+    });
+
     const labReportHtml = labReportElement.innerHTML;
 
     // Create a blob with the HTML and the embedded CSS
     const combinedContent = `
+        <!DOCTYPE html>
         <html>
             <head>
-                <style>
-                    ${cssFileContent}
-                </style>
+                <meta charset="UTF-8">
+                <title>Generated Lab Report</title>
+                <style>${cssFileContent}</style>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.min.js"></script>
+                <script type="module">
+                    import { LaTeXJSComponent } from "https://cdn.jsdelivr.net/npm/latex.js/dist/latex.mjs"
+                    customElements.define("latex-js", LaTeXJSComponent)
+                </script>  
             </head>
             <body>${labReportHtml}</body>
         </html>`;
@@ -495,6 +508,7 @@ document.getElementById('generate-HTML').addEventListener('click', async functio
     downloadLink.download = 'lab_report.html';
     downloadLink.click();
 });
+
 
 
 function saveLabReport() {
